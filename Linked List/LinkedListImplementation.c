@@ -7,15 +7,17 @@ typedef struct node {
 } nodetype, *LIST;
 
 void displayList(LIST A);
+void insertLast(char elem, LIST *A);
 void insertLastUnique(char elem, LIST *A);
-void deleteAllOccur(int position, LIST *A);
+void deleteAllOccur(char elem, LIST *A);
 
 int main(){
     LIST L = NULL;
-    insertLastUnique('N', &L);
-    insertLastUnique('A', &L);
-    insertLastUnique('S', &L);
-    insertLastUnique('A', &L);
+    insertLast('A', &L);
+    insertLast('A', &L);
+    insertLast('B', &L);
+    insertLast('A', &L);
+    deleteAllOccur('A', &L);
     displayList(L);
 }
 
@@ -25,6 +27,18 @@ void displayList(LIST A){
         printf("%c ", trav->data);
     }
     printf("\n");
+}
+
+void insertLast(char elem, LIST *A){
+    LIST *trav = A;
+    LIST temp = NULL;
+    for(trav = A; *trav != NULL; trav = &(*trav)->link){}
+    temp = (LIST)malloc(sizeof(nodetype));
+    if(temp != NULL){
+        temp->data = elem;
+        temp->link = NULL;
+        *trav = temp;
+    }
 }
 
 void insertLastUnique(char elem, LIST *A){
@@ -40,7 +54,16 @@ void insertLastUnique(char elem, LIST *A){
     }
 }
 
-void deleteAllOccur(int position, LIST *A){
+void deleteAllOccur(char elem, LIST *A){
     LIST *trav = A;
-
+    LIST temp = NULL;
+    while(*trav != NULL){
+        if((*trav)->data == elem){
+            temp = *trav;
+            *trav = (*trav)->link;
+            free(temp);
+        } else {
+            trav = &(*trav)->link;
+        }
+    }
 }
