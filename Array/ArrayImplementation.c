@@ -36,11 +36,11 @@ void insertLast(char elem, LIST *A){
 
 void insertLastUnique(char elem, LIST *A){
     int i;
-    if(A->count < MAX){
-        for(i = 0; i < A->count && A->Elem[i] != elem; i++){}
-        if(i == A->count){
-            A->Elem[A->count] = elem;
-            A->count++;
+    if(A->count < MAX){ //check if array is full or not
+        for(i = 0; i < A->count && A->Elem[i] != elem; i++){} //traverse the array and check if element is already in the array
+        if(i == A->count){ //if element is not in the array
+            A->Elem[A->count] = elem; //insert element
+            A->count++; //increment count to match the number of elements
         }
     }
 }
