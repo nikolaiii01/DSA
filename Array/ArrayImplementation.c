@@ -47,13 +47,13 @@ void insertLastUnique(char elem, LIST *A){
 
 void deleteAllOccur(char elem, LIST *A){
     int i, j, k;
-    for (i = 0; i < A->count; i++){
-        if (A->Elem[i] == elem){
-            for (k = i + 1, j = i; k < A->count; k++, j++){
-                A->Elem[j] = A->Elem[k];
+    for (i = 0; i < A->count; i++){ //traverse the array
+        if (A->Elem[i] == elem){ //check to see if element is equal to the element to be deleted
+            for (k = i + 1, j = i; k < A->count + 1; k++, j++){ //traverse array with 2 indices in mind
+                A->Elem[j] = A->Elem[k]; //shift elements to the left
             }
-            A->count--;
-            i--;
+            A->count--; //decrement count to match the number of elements
+            i--; 
         }
     }
 }
