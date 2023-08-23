@@ -17,8 +17,7 @@ int main(){
     insertLast('A', &L);
     insertLast('A', &L);
     insertLast('B', &L);
-    insertLast('C', &L);
-    insertLast('A', &L);
+    insertLast('D', &L);
     deleteAllOccur('A', &L);
     displayList(L);
 }
@@ -36,7 +35,7 @@ void insertLast(char elem, LIST *A){
 }
 
 void insertLastUnique(char elem, LIST *A){
-    int i, j, k;
+    int i;
     if(A->count < MAX){
         for(i = 0; i < A->count && A->Elem[i] != elem; i++){}
         if(i == A->count){
@@ -46,17 +45,15 @@ void insertLastUnique(char elem, LIST *A){
     }
 }
 
-void deleteAllOccur(char elem, LIST *A) {
-    int i, j;
-    for (i = 0, j = 0; i < A->count; i++) {
-        if (A->Elem[i] != elem) {
-            A->Elem[j] = A->Elem[i];
-            j++;
+void deleteAllOccur(char elem, LIST *A){
+    int i, j, k;
+    for (i = 0; i < A->count; i++){
+        if (A->Elem[i] == elem){
+            for (k = i + 1, j = i; k < A->count; k++, j++){
+                A->Elem[j] = A->Elem[k];
+            }
+            A->count--;
+            i--;
         }
-    }
-    A->count = j;
-    
-    for (; j < MAX; j++) {
-        A->Elem[j] = '\0';
     }
 }
