@@ -12,14 +12,14 @@ typedef struct {
 typedef struct node {
     Studrec stud;
     struct node *link;
-} *Studlist;
+} *StudList;
 
-void displayStudList(Studlist List);
-void insertFirstUnique(Studrec student, Studlist *List);
-Studrec deleteStudRecordByID(int ID, Studlist *List);
+void displayStudList(StudList List);
+void insertFirstUnique(Studrec student, StudList *List);
+Studrec deleteStudRecordByID(int ID, StudList *List);
 
 int main(){
-    Studlist List = NULL;
+    StudList List = NULL;
     Studrec student1, student2, deleted;
     student1.ID = 101;
     strcpy(student1.LN, "Tumapon");
@@ -52,8 +52,8 @@ int main(){
     return 0;
 }
 
-void displayStudList(Studlist A){
-    Studlist trav = A;
+void displayStudList(StudList A){
+    StudList trav = A;
     printf("\nSTUDENT RECORD LIST");
     for(trav = A; trav != NULL; trav = trav->link){
         printf("\nID: %d\n", trav->stud.ID);
@@ -65,8 +65,8 @@ void displayStudList(Studlist A){
     }
 }
 
-void insertFirstUnique(Studrec newStud, Studlist *A){
-    Studlist *trav = A;
+void insertFirstUnique(Studrec newStud, StudList *A){
+    StudList *trav = A;
     struct node *temp;
     for(trav = A; *trav != NULL && (*trav)->stud.ID != newStud.ID; trav = &(*trav)->link){} //traverse linked list and check if ID already exists
     if(*trav == NULL){ //if ID does not exist, insert new node
@@ -79,8 +79,8 @@ void insertFirstUnique(Studrec newStud, Studlist *A){
     }
 }
 
-Studrec deleteStudRecordByID(int ID, Studlist *A){
-    Studlist *trav = A;
+Studrec deleteStudRecordByID(int ID, StudList *A){
+    StudList *trav = A;
     Studrec ret;
     struct node *temp;
     for(trav = A; *trav != NULL && (*trav)->stud.ID != ID; trav = &(*trav)->link){}
