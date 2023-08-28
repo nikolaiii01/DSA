@@ -83,14 +83,14 @@ Studrec deleteStudRecordByID(int ID, StudList *A){
     StudList *trav = A;
     Studrec ret;
     struct node *temp;
-    for(trav = A; *trav != NULL && (*trav)->stud.ID != ID; trav = &(*trav)->link){}
-    if(*trav != NULL){
-        ret = (*trav)->stud;
-        temp = *trav;
-        *trav = (*trav)->link;
-        free(temp);
-    } else {
-        ret.ID = 0;
+    for(trav = A; *trav != NULL && (*trav)->stud.ID != ID; trav = &(*trav)->link){} //traverse linked list and check if ID to be deleted exists
+    if(*trav != NULL){ //if ID exists, delete node
+        ret = (*trav)->stud; //copy student record
+        temp = *trav; //copy node
+        *trav = (*trav)->link; //link previous node to the next node
+        free(temp); //free node
+    } else { //if ID does not exist, set dummy values
+        ret.ID = 0;  
         strcpy(ret.FN, "XXXXX");
         strcpy(ret.LN, "XXXXX");
         ret.MI = '\0';
