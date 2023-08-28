@@ -37,7 +37,7 @@ int main(){
 
     insertFirstUnique(student1, &List);
     insertFirstUnique(student2, &List);
-    
+
     deleted = deleteStudRecordByID(103, &List);
 
     printf("DELETED");
@@ -54,6 +54,7 @@ int main(){
 
 void displayStudList(Studlist A){
     Studlist trav = A;
+    printf("\nSTUDENT RECORD LIST");
     for(trav = A; trav != NULL; trav = trav->link){
         printf("\nID: %d\n", trav->stud.ID);
         printf("First Name: %s\n", trav->stud.FN);
@@ -83,7 +84,7 @@ Studrec deleteStudRecordByID(int ID, Studlist *A){
     Studrec ret;
     struct node *temp;
     for(trav = A; *trav != NULL && (*trav)->stud.ID != ID; trav = &(*trav)->link){}
-    if(trav == NULL){
+    if(*trav != NULL){
         ret = (*trav)->stud;
         temp = *trav;
         *trav = (*trav)->link;
@@ -92,7 +93,7 @@ Studrec deleteStudRecordByID(int ID, Studlist *A){
         ret.ID = 0;
         strcpy(ret.FN, "XXXXX");
         strcpy(ret.LN, "XXXXX");
-        ret.MI = 'X';
+        ret.MI = '\0';
         strcpy(ret.course, "XXXXX");
         ret.yearLevel = 0;
     }
