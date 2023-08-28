@@ -37,7 +37,9 @@ int main(){
 
     insertFirstUnique(student1, &List);
     insertFirstUnique(student2, &List);
+    
     deleted = deleteStudRecordByID(103, &List);
+
     printf("DELETED");
     printf("\nID: %d\n", deleted.ID);
     printf("First Name: %s\n", deleted.FN);
@@ -45,6 +47,7 @@ int main(){
     printf("Middle Initial: %c\n", deleted.MI);
     printf("Course: %s\n", deleted.course);
     printf("Year Level: %d\n", deleted.yearLevel);
+
     displayStudList(List);
     return 0;
 }
