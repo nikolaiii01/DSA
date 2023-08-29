@@ -16,7 +16,8 @@ typedef struct node {
 
 void displayStudList(StudList List);
 void insertFirstUnique(Studrec student, StudList *List);
-Studrec deleteStudRecordByID(int ID, StudList *List);
+Studrec deleteStudRecordByIDPPN(int ID, StudList *List);
+Studrec deleteStudRecordByIDPN(int ID, StudList *List);
 
 int main(){
     StudList List = NULL;
@@ -38,7 +39,7 @@ int main(){
     insertFirstUnique(student1, &List);
     insertFirstUnique(student2, &List);
 
-    deleted = deleteStudRecordByID(103, &List);
+    deleted = deleteStudRecordByIDPN(102, &List);
 
     printf("DELETED");
     printf("\nID: %d\n", deleted.ID);
@@ -79,7 +80,7 @@ void insertFirstUnique(Studrec newStud, StudList *A){
     }
 }
 
-Studrec deleteStudRecordByID(int ID, StudList *A){
+Studrec deleteStudRecordByIDPPN(int ID, StudList *A){
     StudList *trav = A;
     Studrec ret;
     struct node *temp;
@@ -96,6 +97,28 @@ Studrec deleteStudRecordByID(int ID, StudList *A){
         ret.MI = '\0';
         strcpy(ret.course, "XXXXX");
         ret.yearLevel = 0;
+    }
+    return ret;
+}
+
+Studrec deleteStudRecordByIDPN(int ID, StudList *A){
+    Studrec ret = {0, "XXXXX", "XXXXX", 'X', "XXXXX", 0};
+    if(*A != NULL){
+        if((*A)->stud.ID == ID){
+            StudList temp = *A;
+            ret = temp->stud;
+            *A = temp->link;
+            free(temp);
+        } else {
+            StudList trav = *A;
+            for(trav = *A; trav->link != NULL && trav->link->stud.ID != ID; trav = trav->link){}
+            if(trav->link != NULL){
+                StudList temp = trav->link;
+                ret = temp->stud;
+                trav->link = temp->link;
+                free(temp);
+            }
+        }
     }
     return ret;
 }
