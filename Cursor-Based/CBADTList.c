@@ -16,16 +16,19 @@ typedef struct VH {
 } VirtualHeap;
 
 void initVirtualHeap(VirtualHeap *VH);
-int allocSpace(VirtualHeap *VH, int index);
+int allocSpace(VirtualHeap *VH);
 void displayList(VirtualHeap VH, LIST A);
 void insertFirst(VirtualHeap *VH, LIST *A, char elem);
+void insertLast(VirtualHeap *VH, LIST *A, char elem);
 
 int main(){
-    LIST L;
+    LIST L = -1;
     VirtualHeap VH;
     initVirtualHeap(&VH);
     insertFirst(&VH, &L, 'A');
-    displayList(VH);
+    insertFirst(&VH, &L, 'B');
+    insertLast(&VH, &L, 'B');
+    displayList(VH, L);
 
     return 0;
 }
@@ -41,13 +44,13 @@ void initVirtualHeap(VirtualHeap *VH){
 int allocSpace(VirtualHeap *VH){
     LIST ret = VH->Avail;
     if(ret != -1){
-        VH->Avail = VH->Nodes[i].link;
+        VH->Avail = VH->Nodes[ret].link;
     }
     return ret;
 }
 
-void deallocSpace(int ndx, VirtualHeap VH){
-    if(ndx != -1; && ndx < MAX){
+void deallocSpace(int ndx, VirtualHeap *VH){
+    if(ndx != -1 && ndx < MAX){
         VH->Nodes[ndx].link = VH->Avail;
         VH->Avail = ndx;
     }
@@ -61,11 +64,22 @@ void displayList(VirtualHeap VH, LIST A){
 }
 
 void insertFirst(VirtualHeap *VH, LIST *A, char elem){    
-    LIST ndx;
-    ndx = allocSpace(VH);  
-    if(ndx != -1){
-        VH->Nodes[ndx].data = elem;
-        VH->Nodes[ndx].link = *A;
-        *A = ndx;
+    LIST temp;
+    temp = allocSpace(VH);  
+    if(temp != -1){
+        VH->Nodes[temp].data = elem;
+        VH->Nodes[temp].link = *A;
+        *A = temp;
+    }
+}
+
+void insertLast(VirtualHeap *VH, LIST *A, char elem){ 
+    LIST *trav, temp; 
+    temp = allocSpace(VH); //allocate space
+    if(temp != -1){ //check if space was allocated
+        for(trav = A; *trav != -1; trav = &VH->Nodes[*trav].link){} //traverse the list
+        VH->Nodes[temp].data = elem; //insert element
+        VH->Nodes[temp].link = *trav; //
+        *trav = temp;
     }
 }
