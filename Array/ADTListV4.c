@@ -5,7 +5,7 @@
 #define MAX 10
 
 typedef struct node{
-    char *elemPtr;
+    char *elemPtr; 
     int count;
 } *LIST, nodetype;
 
