@@ -14,6 +14,7 @@ void displayList(LIST A);
 void insertFirst(char elem, LIST *A);
 void insertSorted(char elem, LIST *A);
 int indexOfFirstOccurence(char elem, LIST *A);
+void deleteLast(LIST *A);
 
 int main(){
     LIST L;
@@ -24,7 +25,7 @@ int main(){
     for(i = strlen(name)-1; i >= 0; i--){
         insertFirst(name[i], &L);
     }
-    insertSorted('H', &L);
+    insertSorted('C', &L);
     displayList(L);
     int ndx = indexOfFirstOccurence(elem, &L);
     printf("\nIndex of %c: %d", elem,ndx);
@@ -59,7 +60,7 @@ void insertSorted(char elem, LIST *A){
     if(A->count < MAX){
         int i, j;
         for(i = 0; i < A->count && A->Elem[i] < elem; i++){}
-        if(i <= A->count){
+        if(i < A->count){
             for(j = A->count; j > i; j--){
                 A->Elem[j] = A->Elem[j - 1];
             }
@@ -75,4 +76,10 @@ int indexOfFirstOccurence(char elem, LIST *A){
     return (i < A->count) ? i : -1;
 }
 
+void deleteLast(LIST *A){
+    if(A->count > 0){
+        A->Elem[A->count] = NULL;
+        A->count--;
+    }
+}
     

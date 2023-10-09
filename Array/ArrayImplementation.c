@@ -57,3 +57,4 @@ void deleteAllOccur(char elem, LIST *A){
         }
     }
 }
+

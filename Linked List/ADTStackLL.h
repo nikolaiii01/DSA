@@ -29,6 +29,15 @@ void push(Stack *S, char elem){
     }
 }
 
+void insertFirst(LIST *L, char elem){
+    LIST temp = (LIST)malloc(sizeof(nodetype));
+    if(temp != NULL){
+        temp->data = elem;
+        temp->next = *L;
+        *L = temp;
+    }
+}
+
 void pop(Stack *S){
     Stack temp;
     if(*S != NULL){
