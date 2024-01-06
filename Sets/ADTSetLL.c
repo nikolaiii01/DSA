@@ -79,10 +79,10 @@ bool Member(SET A, int elem){
     return (trav != NULL) ? true : false;
 }
 
-SET Union(SET A, SET B){
-    SET ptrA, ptrB, C, *ptrC = &C, temp;
-    for(ptrA = A, ptrB = B; ptrA != NULL || ptrB != NULL; ptrA = ptrA->link, ptrB = ptrB->link)
-}
+// SET Union(SET A, SET B){
+//     SET ptrA, ptrB, C, *ptrC = &C, temp;
+//     for(ptrA = A, ptrB = B; ptrA != NULL || ptrB != NULL; ptrA = ptrA->link, ptrB = ptrB->link){}
+// }
 
 
 

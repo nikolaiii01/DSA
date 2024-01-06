@@ -1,67 +1,90 @@
 // ADT Linked List Version 1
 #include <stdio.h>
-#include <string.h>
 
 #define MAX 10
-
-typedef struct list{
+typedef struct
+{
     char Elem[MAX];
     int count;
 } LIST;
 
-LIST initList(LIST *A);
+void initList(LIST *A);
 void displayList(LIST A);
-void insertFirst(char elem, LIST *A);
-void insertSorted(char elem, LIST *A);
-int indexOfFirstOccurence(char elem, LIST *A);
+void insertFirst(LIST *A, char elem);
+void insertLast(LIST *A, char elem);
+void insertSorted(LIST *A, char elem);
+void insertFirstUnique(LIST *A, char elem);
+void insertLastUnique(LIST *A, char elem);
+void deleteFirst(LIST *A);
 void deleteLast(LIST *A);
+void deleteElem(LIST *A, char elem);
+void deleteAllOccurrences(LIST *A, char elem);
 
-int main(){
+int main()
+{
     LIST L;
-    L = initList(&L);
-    char name[] = "AFG";
-    char elem = 'A';
-    int i;
-    for(i = strlen(name)-1; i >= 0; i--){
-        insertFirst(name[i], &L);
-    }
-    insertSorted('C', &L);
-    displayList(L);
-    int ndx = indexOfFirstOccurence(elem, &L);
-    printf("\nIndex of %c: %d", elem,ndx);
+    initList(&L);
 
+    insertFirst(&L, 'G');
+    insertFirst(&L, 'F');
+    insertFirst(&L, 'A');
+
+    deleteLast(&L);
+
+    displayList(L);
     return 0;
 }
 
-LIST initList(LIST *A){
+void initList(LIST *A)
+{
     A->count = 0;
-    return *A;
 }
 
-void displayList(LIST A){
+void displayList(LIST A)
+{
     int i;
-    for(i = 0; i < A.count; i++){
-        printf("%c ", A.Elem[i]);
+    for (i = 0; i < A.count; i++)
+    {
+        printf("[%d]: %c\n", i, A.Elem[i]);
     }
 }
 
-void insertFirst(char elem, LIST *A){
-    if(A->count < MAX){
+void insertFirst(LIST *A, char elem)
+{
+    if (A->count < MAX)
+    {
         int i;
-        for(i = A->count; i > 0; i--){
+        for (i = A->count; i > 0; i--)
+        {
             A->Elem[i] = A->Elem[i - 1];
         }
         A->Elem[0] = elem;
         A->count++;
-    } 
+    }
 }
 
-void insertSorted(char elem, LIST *A){
-    if(A->count < MAX){
-        int i, j;
-        for(i = 0; i < A->count && A->Elem[i] < elem; i++){}
-        if(i < A->count){
-            for(j = A->count; j > i; j--){
+void insertLast(LIST *A, char elem)
+{
+    if (A->count < MAX)
+    {
+        A->Elem[A->count] = elem;
+        A->count++;
+    }
+}
+
+void insertSorted(LIST *A, char elem)
+{
+    if (A->count < MAX)
+    {
+        int i;
+        for (i = 0; i < A->count && A->Elem[i] < elem; i++)
+        {
+        }
+        if (i < A->count)
+        {
+            int j;
+            for (j = A->count; j > i; j--)
+            {
                 A->Elem[j] = A->Elem[j - 1];
             }
         }
@@ -70,16 +93,98 @@ void insertSorted(char elem, LIST *A){
     }
 }
 
-int indexOfFirstOccurence(char elem, LIST *A){
-    int i;
-    for(i = 0; i < A->count && A->Elem[i] != elem; i++){}
-    return (i < A->count) ? i : -1;
+void insertFirstUnique(LIST *A, char elem)
+{
+    if (A->count < MAX)
+    {
+        int i;
+        for (i = 0; i < A->count - 1 && A->Elem[i] != elem; i++)
+        {
+        }
+        if (!(i < A->count - 1))
+        {
+            for (i = A->count; i > 0; i--)
+            {
+                A->Elem[i] = A->Elem[i - 1];
+            }
+            A->Elem[0] = elem;
+            A->count++;
+        }
+    }
 }
 
-void deleteLast(LIST *A){
-    if(A->count > 0){
-        A->Elem[A->count] = NULL;
+void insertLastUnique(LIST *A, char elem)
+{
+    if (A->count < MAX)
+    {
+        int i;
+        for (i = 0; i < A->count - 1 && A->Elem[i] != elem; i++)
+        {
+        }
+        if (!(i < A->count))
+        {
+            A->Elem[i] = elem;
+            A->count++;
+        }
+    }
+}
+
+void deleteFirst(LIST *A)
+{
+    if (A->count > 0)
+    {
+        int i;
+        for (i = 0; i < A->count - 1; i++)
+        {
+            A->Elem[i] = A->Elem[i + 1];
+        }
         A->count--;
     }
 }
-    
+
+void deleteLast(LIST *A)
+{
+    if (A->count > 0)
+    {
+        A->count--;
+    }
+}
+
+void deleteElem(LIST *A, char elem)
+{
+    if (A->count > 0)
+    {
+        int i;
+        for (i = 0; i < A->count && A->Elem[i] != elem; i++)
+        {
+        }
+        if (i < A->count)
+        {
+            for (; i < A->count; i++)
+            {
+                A->Elem[i] = A->Elem[i + 1];
+            }
+            A->count--;
+        }
+    }
+}
+
+void deleteAllOccurrences(LIST *A, char elem)
+{
+    if (A->count > 0)
+    {
+        int i, j;
+        for (i = 0; i < A->count - 1; i++)
+        {
+            if (A->Elem[i] == elem)
+            {
+                for (j = i; j < A->count - 1; j++)
+                {
+                    A->Elem[j] = A->Elem[j + 1];
+                }
+                A->count--;
+                i--;
+            }
+        }
+    }
+}

@@ -36,8 +36,8 @@ int main(){
 	return 0;
 }
 
-int Hash(int N){
-	return N % 10;
+int Hash(int N){ 
+	return N % MAX;
 }
 
 void insert(Dictionary D, int elem){

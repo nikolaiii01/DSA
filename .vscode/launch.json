@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/franz/Desktop/DSA/DSA/Stack",
-      "program": "c:/Users/franz/Desktop/DSA/DSA/Stack/build/Debug/outDebug",
+      "cwd": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Array",
+      "program": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Array/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

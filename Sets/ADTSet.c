@@ -23,16 +23,24 @@ int main(){
     Initialize(&A);
     Initialize(&B);
 
-    Insert(&A, 7);
-    Insert(&B, 8);
-    Delete(&A, 7);
-    Display(&A);
+    Insert(&A, 1);
+    Insert(&A, 2);
+    Insert(&A, 3);
+    Insert(&B, 2);
+    Insert(&B, 4);
+    Insert(&B, 6);
 
-    bool isMember = Member(&A, 7);
+    printf("SET A");
+    Display(&A);
+    printf("\nSET B");
+    Display(&B);
+
+    bool isMember = Member(&B, 9);
     printf("\n");
     (isMember==true) ? printf("true") : printf("false");
 
-    SET* C = Union(A, B);
+    SET* C = Difference(A, B);
+    printf("\nSET C");
     Display(C);
 
     return 0;
@@ -67,7 +75,7 @@ SET* Difference(SET A, SET B){
     SET *ret = (SET*)malloc(sizeof(int)*MAX);
     int i;
     for(i = 0; i < MAX; i++){
-        (*ret)[i] = (A[i] && B[i]) ? 0 : ((*ret)[i] = A[i]);
+        (*ret)[i] = (A[i] && B[i]) ? 0 : A[i];
     }
     return ret;
 }
@@ -85,9 +93,7 @@ void Display(SET* A){
 }
 
 bool Member(SET* A, int num){
-    int i;
-    for(i = 0; i < MAX && (*A)[num] != 1 ; i++){}
-    return (i < MAX) ? true : false;
+    return ((*A)[num] == 1) ? true : false;
 }
 
 void Insert(SET* A, int num){
@@ -96,4 +102,4 @@ void Insert(SET* A, int num){
 
 void Delete(SET* A, int num){
     (*A)[num] = 0;
-}
+} 
