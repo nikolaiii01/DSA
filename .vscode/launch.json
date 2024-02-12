@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Cursor-Based",
+      "program": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Cursor-Based/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
