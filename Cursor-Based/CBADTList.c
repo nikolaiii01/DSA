@@ -16,7 +16,9 @@ typedef struct VH {
 } VirtualHeap;
 
 void initVirtualHeap(VirtualHeap *VH);
+void initList(LIST *A);
 int allocSpace(VirtualHeap *VH);
+void deallocSpace(int ndx, VirtualHeap *VH);
 void displayVirtualHeap(VirtualHeap VH);
 void displayList(VirtualHeap VH, LIST A);
 void insertFirst(VirtualHeap *VH, LIST *A, char elem);
@@ -26,8 +28,9 @@ void deleteElem(VirtualHeap *VH, LIST *A, char elem);
 void deleteAllOccurrences(VirtualHeap *VH, LIST *A, char elem);
 
 int main(){
-    LIST L = -1;
+    LIST L;
     VirtualHeap VH;
+    initList(&L);
     initVirtualHeap(&VH);
     insertFirst(&VH, &L, 'B');
     insertFirst(&VH, &L, 'A');
@@ -51,6 +54,10 @@ void initVirtualHeap(VirtualHeap *VH){
         VH->Nodes[i].link = i-1;
     }
     VH->Avail = MAX-1;
+}
+
+void initList(LIST *A){
+    *A = -1;
 }
 
 void displayVirtualHeap(VirtualHeap VH) {
