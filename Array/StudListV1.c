@@ -22,7 +22,7 @@ typedef struct {
     int count;
 } StudList;
 
-void initList(StudList *L);
+void initList(StudList *A);
 void displayList(StudList A);
 void insertFirst(StudList *A, Studtype stud);
 void insertLast(StudList *A, Studtype stud);
