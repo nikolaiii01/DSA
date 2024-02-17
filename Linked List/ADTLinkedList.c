@@ -34,7 +34,7 @@ int main()
     // deleteFirst(&L);
     // deleteLast(&L);
     // deleteElem(&L, 'G');
-    // deleteAllOccurrences(&L, 'A');
+    deleteAllOccurrences(&L, 'A');
 
     displayList(L);
     return 0;

@@ -48,8 +48,7 @@ void initializeStack(Stack *S){
 }
 
 void push(Stack *S, int elem){
-    S->Elem[S->top - 1] = elem;
-    S->top--;
+    S->Elem[--S->top] = elem;
 }
 
 void pop(Stack *S){
