@@ -139,7 +139,7 @@ void insertAtPos(LIST *A, char elem, int pos){
         temp = (LIST)malloc(sizeof(struct node));
         if(temp != NULL){
             temp->data = elem;
-            temp->link = (*trav != NULL) ? *trav : NULL;
+            temp->link = *trav;
             *trav = temp;
         }
     }
