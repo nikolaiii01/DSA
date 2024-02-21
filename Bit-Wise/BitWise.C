@@ -3,7 +3,7 @@
 void displayBitPattern(int num);
 
 int main() {
-    int num = 0;
+    int num = 255;
 
     printf("Bit pattern: ");
     displayBitPattern(num);
