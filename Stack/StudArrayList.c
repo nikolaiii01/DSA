@@ -66,7 +66,6 @@ int main(){
     push(&studList, stud2);
     insertBottom(&studList, stud3);
     displayStack(studList);
-
     return 0;
 }
 

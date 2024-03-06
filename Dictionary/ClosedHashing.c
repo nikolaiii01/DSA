@@ -26,6 +26,8 @@ int main(){
 	for(i = 0; i < 10; i++){
 		insert(DList, elem[i]);
 	}
+
+	delete(DList, 'a');
 	
 	displayDictionary(DList);
 	char data = 'i';
@@ -66,19 +68,21 @@ void displayDictionary(Dictionary D){
 
 void insert(Dictionary D, char elem){
 	int i, hashVal = hash(elem);
-	for(i = hashVal; D[i] != EMPTY && D[i] != DELETED && D[i] != elem; i = (i+1)%MAX){}
-	D[i] = elem;
+	for(i = hashVal; D[i] != EMPTY && D[i] != DELETED && D[i] != elem && (i+1)%MAX != hashVal; i = (i+1)%MAX){}
+	if((i+1)%MAX != hashVal && D[i]!= elem){
+		D[i] = elem;
+	}
 }
 
 Boolean isMember(Dictionary D, char elem){
 	int hashVal = hash(elem), i;
-	for(i = hashVal; D[i] != elem && (i+1) != hashVal && D[i] != EMPTY; i = (i+1)%MAX){}
+	for(i = hashVal; D[i] != elem && (i+1)%MAX != hashVal && D[i] != EMPTY; i = (i+1)%MAX){}
 	return (D[i] == elem) ? TRUE : FALSE;
 }
 
 void delete(Dictionary D, char elem){
 	int hashVal = hash(elem), i;
-	for(i = hash(elem); D[i] != elem && (i+1) != hashVal && D[i] != EMPTY; i = (i+1)%MAX){}
+	for(i = hash(elem); D[i] != elem && (i+1)%MAX != hashVal && D[i] != EMPTY; i = (i+1)%MAX){}
 	if(D[i] == elem){
 		D[i] = DELETED;
 	}
