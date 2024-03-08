@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Bit-Vector",
-      "program": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Bit-Vector/build/Debug/outDebug",
+      "cwd": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Queue",
+      "program": "c:/Users/franz/OneDrive/Desktop/DSA/DSA/Queue/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

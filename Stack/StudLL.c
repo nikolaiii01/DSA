@@ -139,4 +139,3 @@ void pushUnique(LLStack *S, Studtype stud){
         }
     }
 }
-

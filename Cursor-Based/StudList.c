@@ -78,8 +78,8 @@ int main(){
 
     deleteAllOccurrencesOfLName(&VHeap, &L, "Barriga");
     insertFirst(&VHeap, &L, stud1);
-    displayVirtualHeap(VHeap);
-    // displayList(VHeap, L);
+    // displayVirtualHeap(VHeap);
+    displayList(VHeap, L);
     return 0;
 }
 
