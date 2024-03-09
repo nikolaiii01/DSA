@@ -15,7 +15,7 @@ typedef struct {
 
 #define LSIZE 50
 
-typedef struct arr{
+typedef struct {
     nametype names[LSIZE];
     int lastNdx;
 }*NameList;
@@ -110,6 +110,34 @@ NameList removeICT(LinkList *A){
                     for(i = 0; i <= ret->lastNdx && strcmp(ret->names[i].LN, (*trav)->sElem.name.LN) < 0 ; i++){}
                     for(j = ret->lastNdx + 1; j > i; j--){
                         ret->names[j] = ret->names[j-1];
+                    }
+                    ret->names[i] = (*trav)->sElem.name;
+                    ret->lastNdx++;
+                }
+                temp = *trav;
+                *trav = temp->sLink;
+                free(temp);
+            } else {
+                trav = &(*trav)->sLink;
+            }
+        }
+    }
+    return ret;
+}
+
+NameList removeICT(LinkList *A){
+    NameList ret = (NameList)malloc((sizeof(nametype)*LSIZE) + sizeof(int));
+    if(ret != NULL){
+        LinkList *trav, temp;
+        int i, j;
+        ret->lastNdx = -1;
+        trav = A;
+        while(*trav != NULL){
+            if(strcmp((*trav)->sElem.course, "BSICT") == 0){
+                if(ret->lastNdx != LSIZE-1){
+                    for(i = 0; i <= ret->lastNdx && strcmp(ret->names[i].LN, (*trav)->sElem.name.LN) < 0; i++){}
+                    for(j = ret->lastNdx + 1; j > i; j--){
+                        ret->names[j] = ret->names[j - 1];
                     }
                     ret->names[i] = (*trav)->sElem.name;
                     ret->lastNdx++;
