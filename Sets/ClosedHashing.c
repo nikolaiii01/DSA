@@ -20,8 +20,6 @@ Boolean isMember(Dictionary D, char elem);
 int searchLength(Dictionary D, char elem);
 Dictionary* convertToDictionary(char* data);
 
-//Arbitrary Hash Values a - 3, b - 9, c - 4, d - 3, e - 9, f - 0, g - 1, h - 3, i - 0, j - 3
-
 int main(){
 	char elem[MAX] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'};
 	int i;
