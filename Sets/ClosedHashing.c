@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX 10
 #define EMPTY '@'
@@ -6,6 +7,10 @@
 
 typedef char Dictionary[MAX];
 typedef enum {TRUE, FALSE} Boolean;
+typedef struct {
+	char data[MAX];
+	int last;
+}LIST;
 
 void initDictionary(Dictionary D);
 void displayDictionary(Dictionary D);
@@ -13,11 +18,12 @@ int hash(char elem);
 void insert(Dictionary D, char elem);
 Boolean isMember(Dictionary D, char elem);
 int searchLength(Dictionary D, char elem);
+Dictionary* convertToDictionary(char* data);
 
 //Arbitrary Hash Values a - 3, b - 9, c - 4, d - 3, e - 9, f - 0, g - 1, h - 3, i - 0, j - 3
 
 int main(){
-	char elem[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'};
+	char elem[MAX] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k'};
 	int i;
 	
 	Dictionary DList;
@@ -26,12 +32,13 @@ int main(){
 	for(i = 0; i < 10; i++){
 		insert(DList, elem[i]);
 	}
-
-	delete(DList, 'a');
 	
-	displayDictionary(DList);
-	char data = 'i';
-	printf("Search Length for %c: %d", data, searchLength(DList, data));
+	// displayDictionary(DList);
+
+	Dictionary* CDictTwoPass = convertToDictionary(elem);
+	// displayDictionary(CDictTwoPass);
+	// char data = 'i';
+	// printf("Search Length for %c: %d", data, searchLength(DList, data));
 	
 	return 0;
 }
@@ -66,6 +73,7 @@ void displayDictionary(Dictionary D){
 	}
 }
 
+//Insertion using Linear Probing
 void insert(Dictionary D, char elem){
 	int i, hashVal = hash(elem);
 	for(i = hashVal; D[i] != EMPTY && D[i] != DELETED && D[i] != elem && (i+1)%MAX != hashVal; i = (i+1)%MAX){}
@@ -92,4 +100,33 @@ int searchLength(Dictionary D, char elem){
 	int hashVal = hash(elem), count, i;
 	for(i = hashVal, count = 1; D[i] != elem; i = (i+1)%MAX, count++){}
 	return (D[i] == elem) ? count : -1;
+}
+
+//Accepts and array as a parameter and returns a dictionary using Two-Pass Loading for resolution for collision
+Dictionary* convertToDictionary(char* data){
+	Dictionary* ret = (Dictionary *)malloc(sizeof(char) * MAX);
+	if(ret != NULL){
+		initDictionary(*ret);
+		int i, j, hashVal;
+		LIST synonyms;
+		synonyms.last = -1;
+		for(i = 0; i < MAX; i++){
+			hashVal = hash(data[i]);
+			if((*ret)[hashVal] != EMPTY && (*ret)[hashVal] != DELETED){
+				synonyms.data[++synonyms.last] = data[i];
+			} else {
+				(*ret)[hashVal] = data[i];
+			}
+		}
+		displayDictionary(*ret);
+		for(i = 0; i <= synonyms.last; i++){
+			hashVal = hash(synonyms.data[i]);
+			for(j = hashVal; (j+1)%MAX != hashVal && (*ret)[j] != synonyms.data[i] && ((*ret)[j] != EMPTY && (*ret)[j] != DELETED); j = (j+1)%MAX){}
+			if((j+1)%MAX != hashVal && (*ret)[j] != synonyms.data[i]){
+				(*ret)[j] = synonyms.data[i];
+			}
+			displayDictionary(*ret);
+		}
+	}
+	return ret;
 }
